@@ -11,8 +11,17 @@ namespace Weathher
     { 
         //Global variable with server's address 
         readonly string BaseUrl = "http://weather-csharp.herokuapp.com/";
-        
-    
+
+        string[] States = {"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+            "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii",
+            "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+            "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri",
+            "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+            "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+            "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
+            "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" };
+
+
         public Form1()
         {
             InitializeComponent();
@@ -23,7 +32,7 @@ namespace Weathher
             //Use the format method to make a string in the format
             //http://weather-csharp.herokuapp.com/text?city=Edina&state=mn
 
-            string weatherTextUrl = string.Format("{0}text?city={1}&state={2}", "http://weather-csharp.herokuapp.com/text?city=Edina&state=mn", city, state);
+            string weatherTextUrl = string.Format("{0}text?city={1}&state={2}", BaseUrl, city, state);
             Debug.WriteLine(weatherTextUrl);
 
             errorMessage = null;
@@ -52,7 +61,7 @@ namespace Weathher
 
             //read data from textBoxes
             string city = txtCity.Text;
-            string state = txtState.Text;
+            string state = cbxState.Text;
 
             if (LocationDataValid(city, state))
             {
@@ -122,6 +131,16 @@ namespace Weathher
                 errorMessage = e.Message; // setting the out parameter
                 return false; //to infrom the caller that there was an error
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cbxState.Items.AddRange(States);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+           Close();
         }
     }
 }
